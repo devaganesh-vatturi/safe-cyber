@@ -32,7 +32,7 @@ const Images = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
-    }, 3000); // Change the image every 3 seconds
+    }, 3000); 
 
     return () => {
       clearInterval(interval);
