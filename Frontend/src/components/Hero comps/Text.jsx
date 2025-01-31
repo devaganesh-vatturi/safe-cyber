@@ -4,20 +4,43 @@ import axios from "axios";
 const Text =()=>{
     const [tdata,setData]=useState("");
     const [sdata,setSdata]=useState("data is a data of the dt ain the data also the data at the date and in the inof of the data is the data");
-    let [flag,setFlag ]=useState(true);
+    let [flag,setFlag ]=useState(false);
     const handleChange=(e)=>{
       setData(e.target.value);
     }
     const handleSubmit =async()=>{
         try{
-         await axios.post('https://safecyber-api.onrender.com/api/contsensor-text',tdata).then(response=>{
-         if(response.data.success)
-         {
-           setSdata(response.data.sdata);
-           const issensd = response.data.sensored;
-         setFlag(true);
-         }
-        })
+        //  await axios.post('https://safecyber-api.onrender.com/api/contsensor-text',tdata).then(response=>{
+        //  if(response.data.success)
+        //  {
+        //    setSdata(response.data.sdata);
+        //    const issensd = response.data.sensored;
+        //  setFlag(true);
+        //  }
+        // })
+
+        const response = await fetch(
+          "https://safecyber-api.onrender.com/api/contsensor-text",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              tdata: tdata,
+            }),
+          }
+        );
+  
+        const data = await response.json();
+        if(data.data.success)
+           {
+             setSdata(data.data.sdata);
+            //  const issensd = response.data.sensored;
+           setFlag(true);
+           }
+
+
         }
         catch(e)
         {
