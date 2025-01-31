@@ -1,9 +1,9 @@
 const express = require("express");
-const { chatControl } = require("../controllers/contSenController");
+const { contControl} = require("../controllers/contSenController");
 
 const router = express.Router();
 
 // chat route
-router.route("/chat").post(chatControl);
+router.route("/contsensor-text").post(contControl);
 
 module.exports = router;

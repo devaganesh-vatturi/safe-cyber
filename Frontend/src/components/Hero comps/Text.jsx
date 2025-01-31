@@ -1,20 +1,23 @@
 import { useState } from "react";
-import '../styles/Text.css'
+import '../styles/Text.css';
+import axios from "axios";
 const Text =()=>{
     const [tdata,setData]=useState("");
     const [sdata,setSdata]=useState("data");
-    let flag=true;
+    let [flag,setFlag ]=useState(true);
     const handleChange=(e)=>{
       setData(e.target.value);
     }
     const handleSubmit =async()=>{
         try{
-         let response=await axios.post('',tdata);
-         // if(response.data.success)
-         // {
-         //   setSdata(response.data.sdata);
-         // flag=true;
-         // }
+         await axios.post('https://safecyber-api.onrender.com/api/contsensor-text',tdata).then(response=>{
+         if(response.data.success)
+         {
+           setSdata(response.data.sdata);
+           const issensd = response.data.sensored;
+         setFlag(true);
+         }
+        })
         }
         catch(e)
         {
@@ -24,7 +27,7 @@ const Text =()=>{
    return(
     <div>
      <input className='text-inp' onChange={handleChange} />
-     <p onClick={handleSubmit}>Submit</p>
+     <button onClick={handleSubmit}>Submit</button>
      { flag &&
        <div>
          <p>{sdata}</p>

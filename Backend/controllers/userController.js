@@ -50,15 +50,15 @@ exports.userLogin = catchAsyncErrors(async (req, res) => {
 
       return res
         .status(404)
-        .json({ success: false, error: "Invalid Email_ID or password." });
+        .json({ success: false, message: "Invalid Email_ID or password." });
     }
     // Compare passwords
     const passwordMatch = await bcrypt.compare(password, user_details.password);
     if (!passwordMatch) {
       // Passwords don't match, send error response
       return res
-        .status(403)
-        .json({ success: false, error: "Invalid Email_ID or password." });
+        .status(201)
+        .json({ success: false, message: "Password is wrong" });
     }
 
     // const token = jwt.sign(
@@ -66,7 +66,7 @@ exports.userLogin = catchAsyncErrors(async (req, res) => {
     //   process.env.JWT_SECRET, // Secret key
     //   { expiresIn: "1h" } // Token expiry time (1 hour)
     // );
-    res.json({
+    res.status(200).json({
       success: true,
       message: "Login successful",
       //   token: token,
